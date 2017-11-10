@@ -31,29 +31,38 @@
 
 package client;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import compute.Task;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import compute.Compute;
 
-public class ComputePi {
-    public static void main(String args[]) {
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
-        try {
-        	
-            String name = "Compute";
-            Registry registry = LocateRegistry.getRegistry(args[0]);
-            Compute comp = (Compute) registry.lookup(name);
-            
-            Pi piTask = new Pi(Integer.parseInt(args[1]));
-            BigDecimal pi = comp.executeTask(piTask);
-            System.out.println("PI with " + args[1] + " digits : " + pi);
-        
-        } catch (Exception e) {
-            System.err.println("ComputePi exception:");
-            e.printStackTrace();
-        }
-    }    
+public class Fibonacci implements Task<BigDecimal>, Serializable {
+    
+	private static final long serialVersionUID = 227L;
+    
+	/**count of fibonacci */
+    private final int digits;
+    
+    /**
+     * Construct a task to calculate pi to the specified
+     * precision.
+     */
+    public Fibonacci(int digits) {
+        this.digits = digits;
+    }
+
+    /**
+     * Calculate fibonacci sequence.
+     */
+    public BigDecimal execute() {
+        return BigDecimal.valueOf(computeFibonacci(digits));
+    }
+
+    /**
+     * Compute the value of fibonacci
+     */
+    public static double computeFibonacci(int n) {
+    	if(n == 0 || n == 1) { return n; }
+    	
+    	return n + computeFibonacci(n - 1);
+    }
 }

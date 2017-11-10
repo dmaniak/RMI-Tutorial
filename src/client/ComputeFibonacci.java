@@ -36,20 +36,20 @@ import java.rmi.registry.Registry;
 import java.math.BigDecimal;
 import compute.Compute;
 
-public class ComputePi {
+public class ComputeFibonacci {
     public static void main(String args[]) {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
         try {
         	
-            String name = "Compute";
+        	String name = "Compute";
             Registry registry = LocateRegistry.getRegistry(args[0]);
             Compute comp = (Compute) registry.lookup(name);
             
-            Pi piTask = new Pi(Integer.parseInt(args[1]));
-            BigDecimal pi = comp.executeTask(piTask);
-            System.out.println("PI with " + args[1] + " digits : " + pi);
+            Fibonacci fiTask = new Fibonacci(Integer.parseInt(args[1]));
+            BigDecimal fibo = comp.executeTask(fiTask);
+            System.out.println("Fibonacci of " + args[1] + ": " + fibo.toBigInteger());
         
         } catch (Exception e) {
             System.err.println("ComputePi exception:");
