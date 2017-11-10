@@ -60,7 +60,7 @@ public class Fibonacci implements Task<BigDecimal>, Serializable {
     /**
      * Compute the value of fibonacci
      */
-    public static double computeFibonacci(int n) {
+    public static int computeFibonacci(int n) {
     	if(n == 0 || n == 1) { return n; }
     	
     	return n + computeFibonacci(n - 1);
