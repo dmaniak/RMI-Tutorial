@@ -12,19 +12,15 @@ public class Main {
         if (System.getSecurityManager() == null) System.setSecurityManager(new SecurityManager());
         
         try {
-            
         	String name = "Compute";
             Registry registry = LocateRegistry.getRegistry(args[0]);
             Compute comp = (Compute) registry.lookup(name);
             
             runPiTask(comp, args[1]);
             runFiboTask(comp, args[1]);
-            
         } catch (Exception ex) {
-            
         	System.err.println("ComputePi exception:");
             ex.printStackTrace();
-            
         }
     }
 	
